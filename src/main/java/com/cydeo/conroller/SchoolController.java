@@ -41,6 +41,22 @@ public class SchoolController {
         return teacherDTOS;
     }
 
+    @PostMapping("/teachers")
+    public ResponseEntity<ResponseWrapper> createTeacher(@RequestBody TeacherDTO teacherDTO){
+
+        TeacherDTO teacher =  teacherService.createTeacher(teacherDTO);
+
+        ResponseWrapper responseWrapper = new ResponseWrapper(true,"Teacher is created."
+                ,HttpStatus.CREATED.value(),teacher);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header("teacherId",String.valueOf(teacher.getId()))
+                .body(responseWrapper);
+
+    }
+
+
+
     @GetMapping("/students")
     public ResponseEntity<ResponseWrapper> readAllStudents(){
 
